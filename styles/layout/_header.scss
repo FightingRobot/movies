@@ -1,0 +1,10 @@
+.header {
+    border-bottom: 2px solid $buddha_gold;
+}
+
+.header__content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100px;
+}
