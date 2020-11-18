@@ -134,4 +134,60 @@ textarea {
           align-items: center;
   height: 100px;
 }
+
+.movie-list-item {
+  padding: 20px;
+  margin-top: 20px;
+  border: 2px solid #c3a000;
+  border-radius: 20px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-transition: 1s;
+  transition: 1s;
+}
+
+.movie-list-item:hover {
+  -webkit-transform: scale(1.1);
+          transform: scale(1.1);
+}
+
+.movie-list-item__image {
+  max-width: 170px;
+  margin-right: 30px;
+}
+
+.movie-list-item__info {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.movie-list-item__title {
+  margin-bottom: 20px;
+  font-size: 2rem;
+}
+
+.movie-list-item__tagline {
+  font-size: 1.3rem;
+}
+
+.movie-list-item__rating {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin-top: 20px;
+  font-size: 1.3rem;
+}
+
+.movie-list-item__score {
+  margin-right: 10px;
+}
 /*# sourceMappingURL=main.css.map */
