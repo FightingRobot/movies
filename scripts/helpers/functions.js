@@ -1,4 +1,22 @@
-export function createCard(object, image) {
+export function getData(link) {
+  return fetch(link)
+    .then(responce => responce.json())
+    .then(json => json.data)
+}
+
+export function getImage(data) {
+  return fetch(data.poster_path)
+    .then(img => img.blob())
+    .then(function (blob) {
+      if (blob.type === 'image/jpeg') {
+        return URL.createObjectURL(blob);
+      }
+      throw Error();
+    })
+    .catch(error => console.log(error));
+}
+
+export function createCard(object, image = '../../assets/placeholder.png') {
   const mainBlock = document.createElement('div');
   mainBlock.className = 'movie-list__item movie-list-item';
 
