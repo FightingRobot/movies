@@ -3,19 +3,20 @@ import { getData, getImage, createCard } from '../helpers/functions.js';
 
 class Controller {
   constructor() {
-    this.movieList = document.querySelector('.movie-list');
+    // this.movieList = document.querySelector('.movie-list');
   }
 
-  insertCards = (data) => {
-    for (let obj of data) {
-      getImage(obj)
-        .then(img => this.movieList.append(createCard(obj, img)))
-        .catch(error => console.log(error));;
-    }
+  insertCards(data) {
+    var movieList = document.querySelector('.movie-list');
+    data.forEach(function (a) {
+      getImage(a)
+        .then(img => movieList.append(createCard(a, img)))
+        .catch(error => console.log(error))
+    })
   }
 
-  start = () => {
-    const loader = document.querySelector('.loader');
+  start() {
+    var loader = document.querySelector('.loader');
 
     getData(DATA_LINK)
       .then(data => this.insertCards(data))
@@ -24,5 +25,5 @@ class Controller {
   }
 }
 
-const controller = new Controller();
+var controller = new Controller();
 export default controller;
