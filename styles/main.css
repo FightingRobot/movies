@@ -135,6 +135,10 @@ textarea {
   height: 100px;
 }
 
+.movie-list {
+  padding: 20px;
+}
+
 .movie-list-item {
   -webkit-box-align: center;
       -ms-flex-align: center;
@@ -155,6 +159,12 @@ textarea {
           user-select: none;
 }
 
+@media screen and (max-width: 374px) {
+  .movie-list-item {
+    padding: 10px;
+  }
+}
+
 .movie-list-item:hover {
   -webkit-transform: scale(1.1);
           transform: scale(1.1);
@@ -165,9 +175,16 @@ textarea {
   margin-right: 30px;
 }
 
+@media screen and (max-width: 767px) {
+  .movie-list-item__image {
+    max-width: 130px;
+  }
+}
+
 @media screen and (max-width: 374px) {
   .movie-list-item__image {
-    max-width: 100px;
+    max-width: 90px;
+    margin-right: 10px;
   }
 }
 
