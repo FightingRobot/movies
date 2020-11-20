@@ -4,6 +4,7 @@ import { getData, getImage, createCard } from '../helpers/functions.js';
 class Controller {
   constructor() {
     this.movieList = document.querySelector('.movie-list');
+    this.loader = document.querySelector('.loader');
   }
 
   insertCards = (data) => {
@@ -14,12 +15,14 @@ class Controller {
     }
   }
 
-  start = () => {
-    const loader = document.querySelector('.loader');
+  toggleLoader() {
+    this.loader.classList.toggle('loader_disable')
+  }
 
+  start = () => {
     getData(DATA_LINK)
       .then(data => this.insertCards(data))
-      .then(() => loader.classList.toggle('loader_disable'))
+      .then(() => this.toggleLoader())
       .catch(error => console.log(error));
   }
 }
