@@ -2,7 +2,9 @@ import React, { useState, useEffect } from 'react';
 
 import { DATA_LINK } from '../../helpers/constants';
 import { getData, getImage } from '../../helpers/functions.js';
+
 import CreateCard from '../CreateCard/CreateCard.jsx';
+import Loader from '../Loader/Loader.jsx';
 
 import './Controller.scss';
 
@@ -41,9 +43,7 @@ function Controller() {
 
   return (
     <div className="movies">
-      {/* <div className="loader">
-          <div className="loader__circle"></div>
-        </div> */}
+      <Loader images={images} />
       <main className="main">
         <div className="content main__content">
           <div className="movie-list">

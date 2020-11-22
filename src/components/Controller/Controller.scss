@@ -1,5 +1,5 @@
 .movie-list {
-    padding: 20px;;
+    padding: 20px;
 }
 
 .movie-list-item {
@@ -84,39 +84,5 @@
 
     &__score {
         margin-right: 10px;
-    }
-}
-
-.loader {
-    position: fixed;
-
-    align-items: center;
-
-    display: flex;
-    justify-content: center;
-
-    width: 100%;
-    height: 100%;
-    transform: scale(1);
-
-    background-color: rgb(195, 160, 0);
-
-    &_disable {
-        transform: scale(0);
-    }
-    
-    &__circle {
-        width: 50px;
-        height: 50px;
-        background-color: white;
-        border: 5px solid white;
-        border-radius: 50%;
-        border-bottom-left-radius: 0;
-        animation: rotate linear 0.6s infinite;
-
-        @keyframes rotate {
-            0% {transform:rotate(0deg)}
-            100%{transform:rotate(360deg)}
-        }   
     }
 }
