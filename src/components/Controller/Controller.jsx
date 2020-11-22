@@ -7,55 +7,52 @@ import CreateCard from '../CreateCard/CreateCard.jsx';
 import './Controller.scss';
 
 function Controller() {
-    const [cards, generateCards] = useState([]);
+  const [data, setData] = useState([]);
+  const [images, setImages] = useState([]);
 
-    const insertCards = (data) => {
-        for (let i = 0; i < data.length; i++) {
-            getImage(data[i])
-                .then(img => generateCards([...cards, <CreateCard object={data[i]} image={img} key={i} />]))
-                .then(data => console.log(cards))
-                .catch(error => console.log(error));
-        }
+  const loadImages = async (data) => {
+    const imgArr = [];
+
+    for (let i = 0; i < data.length; i++) {
+      const img = await getImage(data[i]);
+      imgArr.push(img);
     }
 
-    useEffect(() => {
-        getData(DATA_LINK)
-            .then(data => insertCards(data))
-            // .then(() => this.toggleLoader())
-            .catch(error => console.log(error));
-    }, [])
+    return imgArr;
+  }
 
+  const generateCards = (data, images) => {
+    const cards = [];
 
+    for (let i = 0; i < data.length; i++) {
+      cards.push(<CreateCard object={data[i]} image={images[i]} key={i} />)
+    }
 
-    // insertCards = (data) => {
-    //     for (let obj of data) {
-    //         getImage(obj)
-    //             .then(img => this.movieList.append(createCard(obj, img)))
-    //             .catch(error => console.log(error));;
-    //     }
-    // }
+    return cards;
+  }
 
-    // start = () => {
-    //     getData(DATA_LINK)
-    //         .then(data => this.insertCards(data))
-    //         .then(() => this.toggleLoader())
-    //         .catch(error => console.log(error));
-    // }
+  useEffect(async () => {
+    const fetchData = await getData(DATA_LINK)
+    const fetchImages = await loadImages(fetchData);
 
-    return (
-        <div className="movies">
-            {/* <div className="loader">
+    setData(fetchData);
+    setImages(fetchImages);
+  }, [])
+
+  return (
+    <div className="movies">
+      {/* <div className="loader">
           <div className="loader__circle"></div>
         </div> */}
-            <main className="main">
-                <div className="content main__content">
-                    <div className="movie-list">
-                        {cards}
-                    </div>
-                </div>
-            </main>
+      <main className="main">
+        <div className="content main__content">
+          <div className="movie-list">
+            {generateCards(data, images)}
+          </div>
         </div>
-    );
+      </main>
+    </div>
+  );
 }
 
 export default Controller;
