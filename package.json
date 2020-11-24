@@ -1,7 +1,7 @@
 {
-  "name": "movies",
+  "name": "movies_es6",
   "version": "1.0.0",
-  "description": "",
+  "description": "A training project which purpose is to learn different versions of JS and improve skill of using these techs.",
   "main": "main.js",
   "dependencies": {},
   "devDependencies": {
@@ -16,7 +16,7 @@
     "type": "git",
     "url": "git+https://github.com/FightingRobot/movies.git"
   },
-  "author": "",
+  "author": "Pavel Khatyliou",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/FightingRobot/movies/issues"
