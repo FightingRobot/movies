@@ -42,7 +42,7 @@ function Controller() {
   }, [])
 
   return (
-    <div className="movies">
+    <>
       <Loader images={images} />
       <main className="main">
         <div className="content main__content">
@@ -51,7 +51,7 @@ function Controller() {
           </div>
         </div>
       </main>
-    </div>
+    </>
   );
 }
 

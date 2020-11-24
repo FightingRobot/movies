@@ -1,6 +1,7 @@
 {
-  "name": "movies",
+  "name": "movies_react",
   "version": "0.1.0",
+  "description": "A training project which purpose is to learn different versions of JS and improve skill of using these techs.",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.6",
