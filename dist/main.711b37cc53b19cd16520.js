@@ -86,14 +86,12 @@ eval("\n\nvar isOldIE = function isOldIE() {\n  var memo;\n  return function mem
 /*!******************************************!*\
   !*** ./scripts/components/Controller.js ***!
   \******************************************/
-/*! namespace exports */
-/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/*! unknown exports (runtime-defined) */
+/*! runtime requirements: module, __webpack_require__ */
+/*! CommonJS bailout: module.exports is used directly at 30:0-14 */
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
-"use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => __WEBPACK_DEFAULT_EXPORT__\n/* harmony export */ });\n/* harmony import */ var _helpers_constants_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../helpers/constants.js */ \"./scripts/helpers/constants.js\");\n/* harmony import */ var _helpers_functions_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../helpers/functions.js */ \"./scripts/helpers/functions.js\");\n\r\n\r\n\r\n// var constants = require('../helpers/constants.js');\r\n// var functions = require('../helpers/functions.js');\r\n\r\n// var DATA_LINK = require('../helpers/constants.js');\r\n// var getData = require('../helpers/functions.js');\r\n// var getImage = require('../helpers/functions.js');\r\n// var createCard = require('../helpers/functions.js');\r\n\r\nclass Controller {\r\n  constructor(placeholder) {\r\n    this.placeholder = placeholder;\r\n    // this.movieList = document.querySelector('.movie-list');\r\n  }\r\n\r\n  insertCards(data) {\r\n    var movieList = document.querySelector('.movie-list');\r\n    var placeholder = this.placeholder;\r\n    data.forEach(function (a) {\r\n      (0,_helpers_functions_js__WEBPACK_IMPORTED_MODULE_1__.getImage)(a, placeholder)\r\n        .then(img => movieList.append((0,_helpers_functions_js__WEBPACK_IMPORTED_MODULE_1__.createCard)(a, img)))\r\n        .catch(error => console.log(error))\r\n    })\r\n  }\r\n\r\n  start() {\r\n    console.log(this)\r\n    var loader = document.querySelector('.loader');\r\n\r\n    (0,_helpers_functions_js__WEBPACK_IMPORTED_MODULE_1__.getData)(_helpers_constants_js__WEBPACK_IMPORTED_MODULE_0__.DATA_LINK)\r\n      .then(data => this.insertCards(data))\r\n      .then(() => loader.classList.toggle('loader_disable'))\r\n      .catch(error => console.log(error));\r\n  }\r\n}\r\n\r\n// var controller = new Controller();\r\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Controller);\r\n\n\n//# sourceURL=webpack:///./scripts/components/Controller.js?");
+eval("var constants = __webpack_require__(/*! ../helpers/constants.js */ \"./scripts/helpers/constants.js\");\r\nvar functions = __webpack_require__(/*! ../helpers/functions.js */ \"./scripts/helpers/functions.js\");\r\n\r\nclass Controller {\r\n  constructor(placeholder) {\r\n    this.placeholder = placeholder;\r\n    // this.movieList = document.querySelector('.movie-list');\r\n  }\r\n\r\n  insertCards(data) {\r\n    var movieList = document.querySelector('.movie-list');\r\n    var placeholder = this.placeholder;\r\n    data.forEach(function (a) {\r\n      functions.getImage(a, placeholder)\r\n        .then(img => movieList.append(functions.createCard(a, img)))\r\n        .catch(error => console.log(error))\r\n    })\r\n  }\r\n\r\n  start() {\r\n    var loader = document.querySelector('.loader');\r\n\r\n    functions.getData(constants.DATA_LINK)\r\n      .then(data => this.insertCards(data))\r\n      .then(() => loader.classList.toggle('loader_disable'))\r\n      .catch(error => console.log(error));\r\n  }\r\n}\r\n\r\nmodule.exports = Controller;\r\n\n\n//# sourceURL=webpack:///./scripts/components/Controller.js?");
 
 /***/ }),
 
@@ -101,14 +99,12 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 /*!**************************************!*\
   !*** ./scripts/helpers/constants.js ***!
   \**************************************/
-/*! namespace exports */
-/*! export DATA_LINK [provided] [no usage info] [missing usage info prevents renaming] */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/*! unknown exports (runtime-defined) */
+/*! runtime requirements: module */
+/*! CommonJS bailout: module.exports is used directly at 3:0-14 */
+/***/ ((module) => {
 
-"use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"DATA_LINK\": () => /* binding */ DATA_LINK\n/* harmony export */ });\nvar DATA_LINK = 'http://react-cdp-api.herokuapp.com/movies/';\r\n\r\n// module.exports(DATA_LINK);\r\n\n\n//# sourceURL=webpack:///./scripts/helpers/constants.js?");
+eval("var DATA_LINK = 'http://react-cdp-api.herokuapp.com/movies/';\r\n\r\nmodule.exports = { DATA_LINK };\r\n\n\n//# sourceURL=webpack:///./scripts/helpers/constants.js?");
 
 /***/ }),
 
@@ -116,16 +112,12 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 /*!**************************************!*\
   !*** ./scripts/helpers/functions.js ***!
   \**************************************/
-/*! namespace exports */
-/*! export createCard [provided] [no usage info] [missing usage info prevents renaming] */
-/*! export getData [provided] [no usage info] [missing usage info prevents renaming] */
-/*! export getImage [provided] [no usage info] [missing usage info prevents renaming] */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/*! unknown exports (runtime-defined) */
+/*! runtime requirements: module */
+/*! CommonJS bailout: module.exports is used directly at 59:0-14 */
+/***/ ((module) => {
 
-"use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"getData\": () => /* binding */ getData,\n/* harmony export */   \"getImage\": () => /* binding */ getImage,\n/* harmony export */   \"createCard\": () => /* binding */ createCard\n/* harmony export */ });\nfunction getData(link) {\r\n  return fetch(link)\r\n    .then(responce => responce.json())\r\n    .then(json => json.data)\r\n}\r\n\r\nfunction getImage(data, image) {\r\n  return fetch(data.poster_path)\r\n    .then(img => img.blob())\r\n    .then(function (blob) {\r\n      if (blob.type === 'image/jpeg') {\r\n        return URL.createObjectURL(blob);\r\n      }\r\n      return image\r\n    })\r\n    .catch(error => console.log(error));\r\n}\r\n\r\nfunction createCard(object, image) {\r\n  var mainBlock = document.createElement('div');\r\n  mainBlock.className = 'movie-list__item movie-list-item';\r\n\r\n  var img = document.createElement('img');\r\n  img.setAttribute('src', image);\r\n  img.className = 'movie-list-item__image';\r\n  mainBlock.append(img);\r\n\r\n  var infoBlock = document.createElement('div');\r\n  infoBlock.className = 'movie-list-item__info';\r\n  mainBlock.append(infoBlock);\r\n\r\n  var title = document.createElement('h3');\r\n  title.className = 'movie-list-item__title';\r\n  title.textContent = object.title;\r\n  infoBlock.append(title);\r\n\r\n  var tagline = document.createElement('p');\r\n  tagline.className = 'movie-list-item__tagline';\r\n  tagline.textContent = object.tagline;\r\n  infoBlock.append(tagline);\r\n\r\n  var rateBlock = document.createElement('div');\r\n  rateBlock.className = 'movie-list-item__rating';\r\n  infoBlock.append(rateBlock);\r\n\r\n  var score = document.createElement('p');\r\n  score.className = 'movie-list-item__score';\r\n  score.textContent = `Score: ${object.vote_average}`;\r\n  rateBlock.append(score);\r\n\r\n  var date = document.createElement('p');\r\n  date.className = 'movie-list-item__date';\r\n  date.textContent = `Release Date: ${object.release_date}`;\r\n  rateBlock.append(date);\r\n\r\n  return mainBlock;\r\n}\r\n\n\n//# sourceURL=webpack:///./scripts/helpers/functions.js?");
+eval("function getData(link) {\r\n  return fetch(link)\r\n    .then(responce => responce.json())\r\n    .then(json => json.data)\r\n}\r\n\r\nfunction getImage(data, image) {\r\n  return fetch(data.poster_path)\r\n    .then(img => img.blob())\r\n    .then(function (blob) {\r\n      if (blob.type === 'image/jpeg') {\r\n        return URL.createObjectURL(blob);\r\n      }\r\n      return image\r\n    })\r\n    .catch(error => console.log(error));\r\n}\r\n\r\nfunction createCard(object, image) {\r\n  var mainBlock = document.createElement('div');\r\n  mainBlock.className = 'movie-list__item movie-list-item';\r\n\r\n  var img = document.createElement('img');\r\n  img.setAttribute('src', image);\r\n  img.className = 'movie-list-item__image';\r\n  mainBlock.append(img);\r\n\r\n  var infoBlock = document.createElement('div');\r\n  infoBlock.className = 'movie-list-item__info';\r\n  mainBlock.append(infoBlock);\r\n\r\n  var title = document.createElement('h3');\r\n  title.className = 'movie-list-item__title';\r\n  title.textContent = object.title;\r\n  infoBlock.append(title);\r\n\r\n  var tagline = document.createElement('p');\r\n  tagline.className = 'movie-list-item__tagline';\r\n  tagline.textContent = object.tagline;\r\n  infoBlock.append(tagline);\r\n\r\n  var rateBlock = document.createElement('div');\r\n  rateBlock.className = 'movie-list-item__rating';\r\n  infoBlock.append(rateBlock);\r\n\r\n  var score = document.createElement('p');\r\n  score.className = 'movie-list-item__score';\r\n  score.textContent = `Score: ${object.vote_average}`;\r\n  rateBlock.append(score);\r\n\r\n  var date = document.createElement('p');\r\n  date.className = 'movie-list-item__date';\r\n  date.textContent = `Release Date: ${object.release_date}`;\r\n  rateBlock.append(date);\r\n\r\n  return mainBlock;\r\n}\r\n\r\nmodule.exports = { getData, getImage, createCard };\r\n\n\n//# sourceURL=webpack:///./scripts/helpers/functions.js?");
 
 /***/ })
 
@@ -234,7 +226,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
   \*************************/
 /*! unknown exports (runtime-defined) */
 /*! runtime requirements: __webpack_require__ */
-eval("// import controller from './components/Controller.js';\r\nvar Controller = __webpack_require__(/*! ./components/Controller.js */ \"./scripts/components/Controller.js\");\r\nvar placeholder = __webpack_require__(/*! ../assets/placeholder.png */ \"./assets/placeholder.png\");\r\n__webpack_require__(/*! ../styles/main.css */ \"./styles/main.css\");\r\n\r\n// controller.default.start();\r\nconsole.log(Controller)\r\nvar controller = new Controller.default(placeholder.default);\r\ncontroller.start();\n\n//# sourceURL=webpack:///./scripts/main.js?");
+eval("var Controller = __webpack_require__(/*! ./components/Controller.js */ \"./scripts/components/Controller.js\");\r\nvar placeholder = __webpack_require__(/*! ../assets/placeholder.png */ \"./assets/placeholder.png\");\r\n__webpack_require__(/*! ../styles/main.css */ \"./styles/main.css\");\r\n\r\n// controller.default.start();\r\nconsole.log(Controller)\r\nvar controller = new Controller(placeholder.default);\r\ncontroller.start();\n\n//# sourceURL=webpack:///./scripts/main.js?");
 })();
 
 /******/ })()
