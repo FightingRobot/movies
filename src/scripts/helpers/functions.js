@@ -4,19 +4,19 @@ export function getData(link) {
     .then(json => json.data)
 }
 
-export function getImage(data) {
+export function getImage(data, image) {
   return fetch(data.poster_path)
     .then(img => img.blob())
     .then(function (blob) {
       if (blob.type === 'image/jpeg') {
         return URL.createObjectURL(blob);
       }
-      throw Error();
+      return image
     })
     .catch(error => console.log(error));
 }
 
-export function createCard(object, image = '../../assets/placeholder.png') {
+export function createCard(object, image) {
   var mainBlock = document.createElement('div');
   mainBlock.className = 'movie-list__item movie-list-item';
 
