@@ -13,7 +13,25 @@ npm install
 
 ## Getting started
 
-To run -- use 'Live Server' extension.
+To run use:
+
+```shell
+npm start
+```
+
+To build different versions of project use commands below.
+
+For development build:
+
+```shell
+npm run dev
+```
+
+For production build:
+
+```shell
+npm run prod
+```
 
 ## Features
 
