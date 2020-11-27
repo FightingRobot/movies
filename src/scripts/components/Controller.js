@@ -4,7 +4,6 @@ var functions = require('../helpers/functions.js');
 class Controller {
   constructor(placeholder) {
     this.placeholder = placeholder;
-    // this.movieList = document.querySelector('.movie-list');
   }
 
   insertCards(data) {
