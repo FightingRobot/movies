@@ -1,4 +1,4 @@
-# Movies (ES6)
+# Movies (ES5)
 
 A training project which purpose is to learn different versions of JS and improve skill of using these techs.
 

@@ -47,11 +47,11 @@ function createCard(object, image) {
   infoBlock.append(rateBlock);
 
   score.className = 'movie-list-item__score';
-  score.textContent = `Score: ${object.vote_average}`;
+  score.textContent = 'Score: ' + object.vote_average;
   rateBlock.append(score);
 
   date.className = 'movie-list-item__date';
-  date.textContent = `Release Date: ${object.release_date}`;
+  date.textContent = 'Release Date: ' + object.release_date;
   rateBlock.append(date);
 
   return mainBlock;
