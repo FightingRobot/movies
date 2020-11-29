@@ -17,9 +17,7 @@ class Controller {
   }
 
   generateCards(data, img) {
-    const cards = [];
-    data.map((item, index) => { cards.push(createCard(item, img[index])) });
-    return cards;
+    return data.map((item, index) => createCard(item, img[index]));
   }
 
   toggleLoader() {
