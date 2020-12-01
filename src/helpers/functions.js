@@ -13,7 +13,7 @@ export function getImage(data) {
       if (blob.type === 'image/jpeg') {
         return URL.createObjectURL(blob);
       }
-      throw Error();
+      return placeholder
     })
-    .catch(error => placeholder);
+    .catch(error => console.log(error));
 }
