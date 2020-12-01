@@ -10,12 +10,14 @@ function Controller(placeh) {
   var imagesG = [];
 
   loadImages = function (data, callback) {
-    var imgArr = [];
+    var imgArr = Array(10);
+    var fillingProgress = 0;
 
     data.forEach(function (e, i, a) {
       functions.getImage(e, placeholder, function (img) {
-        imgArr.push(img);
-        if (imgArr.length === a.length) {
+        imgArr[i] = img;
+        fillingProgress += 1;
+        if (fillingProgress === a.length) {
           callback(imgArr)
         }
       });
