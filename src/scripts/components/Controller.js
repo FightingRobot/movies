@@ -9,34 +9,51 @@ function Controller(placeh) {
   var dataG = [];
   var imagesG = [];
 
-  this.loadImages = function (data) {
-    var promises = data.map((a) => functions.getImage(a, placeholder));
-    return Promise.all(promises);
+  loadImages = function (data, callback) {
+    var imgArr = [];
+
+    data.forEach(function (e, i, a) {
+      functions.getImage(e, placeholder, function (img) {
+        imgArr.push(img);
+        if (imgArr.length === a.length) {
+          callback(imgArr)
+        }
+      });
+    });
   }
 
-  this.generateCards = function (data, img) {
-    return data.map((item, index) => functions.createCard(item, img[index]));
+  generateCards = function (data, img, callback) {
+    return callback(data.map(function (item, index) {
+      return functions.createCard(item, img[index]
+      )
+    }));
   }
 
-  this.toggleLoader = function () {
-    loader.classList.toggle('loader_disable')
+  toggleLoader = function () {
+    loader.classList.toggle('loader_disable');
   }
 
-  this.insertCards = function (cards) {
-    cards.map(a => movieList.append(a))
+  insertCards = function (cards) {
+    cards.map(function (a) {
+      movieList.append(a);
+    })
   }
 
   this.start = function () {
-    functions.getData(constants.DATA_LINK)
-      .then(data => {
-        dataG = data;
-        return this.loadImages(data)
-          .then(images => imagesG = images)
-      })
-      .then(() => this.generateCards(dataG, imagesG))
-      .then((cards) => this.insertCards(cards))
-      .catch(error => movieList.append(error))
-      .finally(() => this.toggleLoader());
+    functions.getData(constants.DATA_LINK, function (data) {
+      dataG = data;
+
+      loadImages(data, function (images) {
+        imagesG = images;
+
+        console.log(dataG, imagesG)
+
+        generateCards(dataG, imagesG, function (cards) {
+          insertCards(cards);
+          toggleLoader();
+        });
+      });
+    });
   }
 }
 

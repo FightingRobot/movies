@@ -1,19 +1,35 @@
-function getData(link) {
-  return fetch(link)
-    .then(responce => responce.json())
-    .then(json => json.data)
+function getData(link, callback) {
+  var xhr = new XMLHttpRequest();
+  xhr.open('GET', link);
+  xhr.responseType = 'json';
+  xhr.send();
+
+  xhr.onload = function () {
+    return callback(xhr.response.data)
+  };
+
+  xhr.onerror = function () {
+    alert('Error! Data cannot be fetched!')
+  };
 }
 
-function getImage(data, image) {
-  return fetch(data.poster_path)
-    .then(img => img.blob())
-    .then(function (blob) {
-      if (blob.type === 'image/jpeg') {
-        return URL.createObjectURL(blob);
-      }
-      return image
-    })
-    .catch(error => console.log(error));
+function getImage(data, image, callback) {
+  var xhr = new XMLHttpRequest();
+  xhr.open('GET', data.poster_path);
+  xhr.responseType = 'blob';
+  xhr.send();
+
+  xhr.onload = function () {
+    if (xhr.response.type === 'image/jpeg') {
+      return callback(URL.createObjectURL(xhr.response));
+    } else {
+      return callback(image);
+    }
+  }
+
+  xhr.onerror = function () {
+    alert('Error! Images cannot be fetched!')
+  }
 }
 
 function createCard(object, image) {
