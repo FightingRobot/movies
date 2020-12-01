@@ -46,8 +46,6 @@ function Controller(placeh) {
       loadImages(data, function (images) {
         imagesG = images;
 
-        console.log(dataG, imagesG)
-
         generateCards(dataG, imagesG, function (cards) {
           insertCards(cards);
           toggleLoader();
