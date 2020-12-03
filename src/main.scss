@@ -145,3 +145,47 @@ html {
         margin-right: 10px;
     }
 }
+
+.movie-list__searchform {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.movie-list__searchinput {
+    font-family: 'Montserrat', sans-serif;
+    width: 100%;
+    padding: 5px;
+    border-radius: 20px;
+    border: 2px solid rgb(195, 160, 0);
+    background-color: black;
+    color: white;
+    outline: none;
+}
+
+.movie-list__searchbtn {
+    border: 2px solid rgb(195, 160, 0);
+    background-color: black;
+    color: white;
+    padding: 13px;
+    margin-left: 10px;
+    border-radius: 20px;
+    background-image: url(./search-solid.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 15px;
+    transition: 0.2s;
+    cursor: pointer;
+
+    &:hover {
+        background-color: rgb(195, 160, 0);
+        background-size: 18px;
+    }
+}
+
+.errorBox {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: orange;
+}
