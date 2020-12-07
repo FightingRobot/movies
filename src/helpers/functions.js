@@ -3,7 +3,6 @@ import placeholder from './placeholder.png';
 export function getData(link) {
   return fetch(link)
     .then(responce => responce.json())
-    .then(json => json.data)
 }
 
 export function getImage(data) {

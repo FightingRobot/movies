@@ -91,7 +91,7 @@ textarea {
         padding: 13px;
         margin-left: 10px;
         border-radius: 20px;
-        background-image: url(./search-solid.svg);
+        background-image: url(./assets/search-solid.svg);
         background-repeat: no-repeat;
         background-position: center;
         background-size: 15px;
@@ -102,17 +102,6 @@ textarea {
             background-color: rgb(195, 160, 0);
             background-size: 18px;
         }
-    }
-
-    &__debug {
-        font-family: 'Montserrat', sans-serif;
-        padding: 5px;
-        width: 10%;
-        border-radius: 20px;
-        border: 2px solid rgb(195, 160, 0);
-        background-color: black;
-        color: white;
-        outline: none;
     }
 }
 
@@ -206,6 +195,12 @@ textarea {
     }
 }
 
+.infoBox {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .errorBox {
     display: flex;
     justify-content: center;
@@ -217,6 +212,7 @@ textarea {
     display: flex;
     justify-content: center;
     margin-top: 20px;
+    flex-wrap: wrap;
 
     &-item {
         margin: 0 5px;
@@ -230,13 +226,46 @@ textarea {
         cursor: pointer;
         user-select: none;
 
+        &_next,
+        &_prev,
+        &_last,
+        &_first {
+            background-image: url(./assets/chevron-right-solid.svg);
+            background-repeat: no-repeat;
+            background-position: center;
+            padding: 15px;
+            border-width: 5px;
+            background-size: 10px;
+        }
+
+        &_prev {
+            transform: rotate(180deg);
+
+            &:hover {
+                transform: rotate(180deg) scale(1.1) !important;
+            }
+        }
+
+        &_last,
+        &_first {
+            background-image: url(./assets/angle-double-right-solid.svg );
+        }
+
+        &_first {
+            transform: rotate(180deg);
+
+            &:hover {
+                transform: rotate(180deg) scale(1.1) !important;
+            }
+        }
+
         &_active {
             background-color: rgb(195, 160, 0);
         }
 
         &_disabled {
             border-color: gray;
-            background-color: rgba(88, 88, 88, 0.5);
+            background-color: gray;
             color: gray;
         }
 

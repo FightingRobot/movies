@@ -1,11 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
 
-import { DATA_LINK, MAX_ITEMS } from './helpers/constants';
+import { DATA_LINK } from './helpers/constants';
 import { getData, getImage } from './helpers/functions.js';
 
 import Header from './components/Header/Header';
 import CreateCard from './components/CreateCard/CreateCard.jsx';
 import Loader from './components/Loader/Loader.jsx';
+import Arrow from './components/Arrow/Arrow.jsx';
 
 import './main.scss';
 
@@ -15,9 +16,10 @@ function App() {
   const [images, setImages] = useState([]);
   const [error, setError] = useState('');
   const [page, setPage] = useState(0);
+  const [total, setTotal] = useState(0);
+  const [request, setRequest] = useState('');
 
   const inputRef = useRef();
-  const debugRef = useRef();
 
   const loadImages = async (data) => {
     const imgArr = [];
@@ -34,43 +36,43 @@ function App() {
     setPage(Number(event.currentTarget.textContent) - 1);
   }
 
-  const generatePagination = (data, page) => {
+  const generatePagination = (data) => {
     const pages = [];
     let active = "";
 
-    for (let i = 0; i < data.length / 10; i++) {
+    for (let i = 0; i < total / 10; i++) {
       active = page === i ? "pagination-item_active" : "";
       pages.push(<div key={i} onClick={changePage} className={"pagination-item " + active}>{i + 1}</div>);
     }
 
-    return pages;
+    if (pages.length > 10 && page >= 4 && page <= pages.length - 4) {
+      return pages.slice(page - 3, page).concat(pages.slice(page, page + 4));
+    } else if (pages.length > 10 && page >= pages.length - 4) {
+      return pages.slice(-6)
+    } else if (pages.length > 10) {
+      return pages.slice(0, 6)
+    }
+
+    return pages
   }
 
-  const generateCards = (data, images, page) => {
+  const generateCards = (data, images) => {
     const cards = [];
-    let length = 0;
 
-    data.length - page * 10 >= 10
-      ? length = (page * 10) + 10
-      : length = (page * 10) + (data.length - page * 10)
-
-    for (let i = page * 10; i < length; i++) {
+    for (let i = 0; i < data.length; i++) {
       cards.push(<CreateCard object={data[i]} image={images[i]} key={i} />)
     }
 
     return cards;
   }
 
-  const loadData = async (link, debugValue = '') => {
-    let fetchData = await getData(link)
+  const loadData = async (link) => {
+    const dlData = await getData(link)
 
-    if (debugValue !== '') {
-      const moviePlaceholder = fetchData[0];
-      fetchData = new Array(Number(debugValue));
-      fetchData.fill(moviePlaceholder, 0);
-    }
+    setTotal(dlData.total);
+    setData(dlData.data);
 
-    setData(fetchData);
+    let fetchData = dlData.data;
 
     if (!fetchData.length) {
       setError('Nothing is found');
@@ -84,20 +86,33 @@ function App() {
     event.preventDefault();
 
     const requestBody = inputRef.current.value;
-    const debugBody = debugRef.current.value;
 
     if (!requestBody.length) {
       setError('Your request is empty')
       return;
     }
 
+    setRequest(requestBody);
+
     setData(new Array(1));
     setImages([]);
     setError('');
     setPage(0);
 
-    return loadData(`${DATA_LINK}?searchBy=title&search=${requestBody}&offset=0`, debugBody);
+    return loadData(`${DATA_LINK}?searchBy=title&search=${requestBody}&offset=0`);
   }
+
+  const checkoutPage = () => {
+    setData(new Array(1));
+    setImages([]);
+    setError('');
+
+    return loadData(`${DATA_LINK}?searchBy=title&search=${request}&offset=${page * 10}`);
+  }
+
+  useEffect(() => {
+    checkoutPage();
+  }, [page])
 
   useEffect(async () => {
     try {
@@ -106,21 +121,6 @@ function App() {
       setError('Failed to fetch data! Check your network settings.')
     }
   }, []);
-
-  // const checkPage = () => {
-  //   if ('last') {
-  //     if () {
-
-  //     }
-  //     return false
-  //   }
-
-  //   if ('first') {
-  //     if () {
-
-  //     }
-  //   }
-  // }
 
   return (
     images.length === data.length ? (
@@ -132,39 +132,45 @@ function App() {
               <div className="movie-list__searchbar">
                 <form onSubmit={submitForm} action="" className="movie-list__searchform">
                   <input ref={inputRef} placeholder="Find your movie" type="text" className="movie-list__searchinput" />
-                  <input ref={debugRef} placeholder="Debug" type="number" className="movie-list__debug" />
                   <button className="movie-list__searchbtn"></button>
                 </form>
+                {request
+                  ? (
+                    <p className="infoBox">Search results for &apos;{request}&apos;. Total movies: {total}. Total pages: {Math.ceil(total / 10)}.</p>
+                  )
+                  : null}
                 <p className='errorBox'>{error}</p>
               </div>
               <div className="movie-list__cardbar">
-                {generateCards(data, images, page)}
+                {generateCards(data, images)}
               </div>
               {data.length ? (
                 <div className="movie-list__pagination pagination">
-                  <div
-                    onClick={() => page !== 0
-                      ? setPage(page - 1)
-                      : null
-                    }
-                    className={`pagination-item ${page === 0
-                      ? "pagination-item_disabled"
-                      : ""}`
-                    }>
-                    prev
-                </div>
-                  {generatePagination(data, page)}
-                  <div
-                    onClick={() => page + 1 !== Math.ceil(data.length / 10)
-                      ? setPage(page + 1)
-                      : null
-                    }
-                    className={`pagination-item ${page + 1 === Math.ceil(data.length / 10)
-                      ? "pagination-item_disabled"
-                      : ""}`
-                    }>
-                    next
-                  </div>
+                  <Arrow
+                    total={total}
+                    page={page}
+                    setPage={setPage}
+                    arrowClass={'pagination-item_first'}
+                  />
+                  <Arrow
+                    total={total}
+                    page={page}
+                    setPage={setPage}
+                    arrowClass={'pagination-item_prev'}
+                  />
+                  {generatePagination(data)}
+                  <Arrow
+                    total={total}
+                    page={page}
+                    setPage={setPage}
+                    arrowClass={'pagination-item_next'}
+                  />
+                  <Arrow
+                    total={total}
+                    page={page}
+                    setPage={setPage}
+                    arrowClass={'pagination-item_last'}
+                  />
                 </div>
               ) : (
                   null
