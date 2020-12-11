@@ -1,7 +1,6 @@
 export function getData(link) {
   return fetch(link)
     .then(responce => responce.json())
-    .then(json => json.data)
 }
 
 export function getImage(data, image) {
@@ -53,5 +52,69 @@ export function createCard(object, image = '../../assets/placeholder.png') {
   date.textContent = `Release Date: ${object.release_date}`;
   rateBlock.append(date);
 
+  return mainBlock;
+}
+
+export function createPagItem(index, active, callback) {
+  const mainBlock = document.createElement('div');
+  mainBlock.className = 'pagination-item ';
+
+  mainBlock.onclick = (callback);
+
+  if (active) {
+    mainBlock.classList.add(active);
+  }
+
+  mainBlock.textContent = index + 1;
+  return mainBlock;
+}
+
+export function createPagArrow(total, page, setPage, arrowClass) {
+  let arrowDisabledClass = 0;
+  let arrowCallback = 0;
+
+  if (arrowClass === 'pagination-item_next') {
+    if (page + 1 !== Math.ceil(total / 10)) {
+      arrowDisabledClass = ''
+      arrowCallback = () => setPage(page + 1);
+    } else {
+      arrowDisabledClass = 'pagination-item_disabled'
+      arrowCallback = null;
+    }
+  }
+
+  if (arrowClass === 'pagination-item_last') {
+    if (page + 1 !== Math.ceil(total / 10)) {
+      arrowDisabledClass = ''
+      arrowCallback = () => setPage(Math.ceil(this.total / 10) - 1);
+    } else {
+      arrowDisabledClass = 'pagination-item_disabled'
+      arrowCallback = null;
+    }
+  }
+
+  if (arrowClass === 'pagination-item_prev') {
+    if (page !== 0) {
+      arrowDisabledClass = ''
+      arrowCallback = () => setPage(this.page - 1);
+    } else {
+      arrowDisabledClass = 'pagination-item_disabled'
+      arrowCallback = null;
+    }
+  }
+
+  if (arrowClass === 'pagination-item_first') {
+    if (page !== 0) {
+      arrowDisabledClass = ''
+      arrowCallback = () => setPage(0);
+    } else {
+      arrowDisabledClass = 'pagination-item_disabled'
+      arrowCallback = null;
+    }
+  }
+
+  const mainBlock = document.createElement('div');
+  mainBlock.className = `pagination-item ${arrowClass} ${arrowDisabledClass}`;
+  mainBlock.onclick = arrowCallback;
   return mainBlock;
 }

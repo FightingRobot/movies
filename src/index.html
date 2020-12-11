@@ -22,6 +22,26 @@
     <main class="main">
         <div class="content main__content">
             <div class="movie-list">
+
+                <div class="movie-list__searchbar">
+                    <form action="" class="movie-list__searchform">
+                        <input placeholder="Find your movie" type="text" class="movie-list__searchinput" />
+                        <button class="movie-list__searchbtn"></button>
+                    </form>
+                    <!-- {request
+                    ? (
+                    <p className="infoBox">Search results for &apos;{request}&apos;. Total movies: {total}. Total pages:
+                        {Math.ceil(total / 10)}.</p>
+                    )
+                    : null} -->
+                    <p class='errorBox'></p>
+                </div>
+
+                <div class="movie-list__cardbar">
+                </div>
+                <div class="movie-list__pagination pagination">
+                </div>
+
             </div>
         </div>
     </main>
