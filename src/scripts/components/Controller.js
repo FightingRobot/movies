@@ -102,7 +102,9 @@ class Controller {
     this.movieList.textContent = '';
     this.pagArea.textContent = '';
     this.errorBox.textContent = '';
+    this.infoBox.textContent = '';
     this.page = 0;
+
 
     return this.start(`${DATA_LINK}?searchBy=title&search=${requestBody}&offset=0`);
   }
@@ -131,6 +133,9 @@ class Controller {
         if (this.data.length) {
           const pages = this.generatePagination(data);
           this.insertPagination(pages);
+          if (this.request) {
+            this.infoBox.textContent = `Search results for "${this.request}". Total movies: ${this.total}. Total pages: ${Math.ceil(this.total / 10)}.`;
+          }
         } else {
           this.errorBox.textContent = "Nothing is found"
         }
