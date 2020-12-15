@@ -61,6 +61,10 @@
     transition: 1s;
     user-select: none;
 
+    @media screen and (max-width: 767px) {
+        width: 100%;
+    }
+
     @media screen and (max-width: 374px) {
         padding: 10px;
     }
