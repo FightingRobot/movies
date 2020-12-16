@@ -86,7 +86,7 @@ export function createPagArrow(total, page, setPage, arrowClass) {
   if (arrowClass === 'pagination-item_last') {
     if (page + 1 !== Math.ceil(total / 10)) {
       arrowDisabledClass = ''
-      arrowCallback = () => setPage(Math.ceil(this.total / 10) - 1);
+      arrowCallback = () => setPage(Math.ceil(total / 10) - 1);
     } else {
       arrowDisabledClass = 'pagination-item_disabled'
       arrowCallback = null;
@@ -96,7 +96,7 @@ export function createPagArrow(total, page, setPage, arrowClass) {
   if (arrowClass === 'pagination-item_prev') {
     if (page !== 0) {
       arrowDisabledClass = ''
-      arrowCallback = () => setPage(this.page - 1);
+      arrowCallback = () => setPage(page - 1);
     } else {
       arrowDisabledClass = 'pagination-item_disabled'
       arrowCallback = null;
