@@ -2,12 +2,32 @@ var constants = require('../helpers/constants.js');
 var functions = require('../helpers/functions.js');
 
 function Controller(placeh) {
-  var movieList = document.querySelector('.movie-list');
+  var movieList = document.querySelector('.movie-list__cardbar');
+  var pagArea = document.querySelector('.movie-list__pagination');
   var loader = document.querySelector('.loader');
+  var searchForm = document.querySelector('.movie-list__searchform');
+  var searchInput = document.querySelector('.movie-list__searchinput');
+  var errorBox = document.querySelector('.errorBox');
+  var infoBox = document.querySelector('.infoBox');
   var placeholder = placeh;
 
   var dataG = [];
   var imagesG = [];
+  var page = 0;
+  var total = 0;
+  var request = '';
+  var error = '';
+
+  changePage = function (event) {
+    page = Number(event.currentTarget.textContent) - 1;
+    console.log(this)
+    checkoutPage();
+  }
+
+  setPage = function (num) {
+    page = num;
+    checkoutPage();
+  }
 
   loadImages = function (data, callback) {
     var imgArr = Array(10);
@@ -31,6 +51,50 @@ function Controller(placeh) {
     }));
   }
 
+  generatePageItems = function (data) {
+    const pages = [];
+    let active = "";
+    const changePageL = changePage.bind(this)
+
+    for (let i = 0; i < total / 10; i++) {
+      active = page === i ? "pagination-item_active" : "";
+      pages.push(functions.createPagItem(i, active, changePageL));
+    }
+
+    if (pages.length > 10 && page >= 4 && page <= pages.length - 4) {
+      return pages.slice(page - 3, page).concat(pages.slice(page, page + 4));
+    } else if (pages.length > 10 && page >= pages.length - 4) {
+      return pages.slice(-6)
+    } else if (pages.length > 10) {
+      return pages.slice(0, 6)
+    }
+
+    return pages
+  }
+
+  generatePagination = function (data) {
+    const pages = generatePageItems(data);
+
+    const setPageL = setPage.bind(this);
+
+    pages.push(functions.createPagArrow.call(this, total, page, setPageL, 'pagination-item_next'));
+    pages.push(functions.createPagArrow.call(this, total, page, setPageL, 'pagination-item_last'));
+    pages.unshift(functions.createPagArrow.call(this, total, page, setPageL, 'pagination-item_prev'));
+    pages.unshift(functions.createPagArrow.call(this, total, page, setPageL, 'pagination-item_first'));
+
+    return pages
+  }
+
+  checkoutPage = function () {
+    toggleLoader();
+
+    movieList.textContent = '';
+    pagArea.textContent = '';
+    errorBox.textContent = '';
+
+    return this.start.call(this, `${constants.DATA_LINK}?searchBy=title&search=${request}&offset=${page * 10}`);
+  }
+
   toggleLoader = function () {
     loader.classList.toggle('loader_disable');
   }
@@ -41,11 +105,55 @@ function Controller(placeh) {
     })
   }
 
-  this.start = function () {
-    functions.getData(constants.DATA_LINK, function (data) {
-      dataG = data;
+  insertPagination = function (pages) {
+    pages.map(a => pagArea.append(a));
+  }
 
-      loadImages(data, function (images) {
+  submitForm = function (event) {
+    event.preventDefault();
+    toggleLoader();
+
+    const requestBody = searchInput.value;
+
+    if (!requestBody.length) {
+      errorBox.textContent = 'Your request is empty';
+      toggleLoader();
+      return;
+    }
+
+    request = requestBody;
+    movieList.textContent = '';
+    pagArea.textContent = '';
+    errorBox.textContent = '';
+    infoBox.textContent = '';
+    page = 0;
+
+
+    return this.start.call(this, `${constants.DATA_LINK}?searchBy=title&search=${requestBody}&offset=0`);
+  }
+
+  this.setEvents = function () {
+    const submitFormL = submitForm.bind(this);
+    searchForm.onsubmit = submitFormL;
+  }
+
+  this.start = function (link) {
+    link === undefined ? link = constants.DATA_LINK : link
+    functions.getData(link, function (data) {
+      dataG = data.data;
+      total = data.total;
+      if (dataG.length) {
+        const pages = generatePagination(data);
+        insertPagination(pages);
+        if (request) {
+          infoBox.textContent = `Search results for "${request}". Total movies: ${total}. Total pages: ${Math.ceil(total / 10)}.`;
+        }
+      } else {
+        errorBox.textContent = "Nothing is found"
+        toggleLoader();
+      }
+
+      loadImages(data.data, function (images) {
         imagesG = images;
 
         generateCards(dataG, imagesG, function (cards) {

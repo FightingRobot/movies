@@ -5,7 +5,7 @@ function getData(link, callback) {
   xhr.send();
 
   xhr.onload = function () {
-    return callback(xhr.response.data)
+    return callback(xhr.response)
   };
 
   xhr.onerror = function () {
@@ -73,4 +73,68 @@ function createCard(object, image) {
   return mainBlock;
 }
 
-module.exports = { getData, getImage, createCard };
+function createPagItem(index, active, callback) {
+  const mainBlock = document.createElement('div');
+  mainBlock.className = 'pagination-item ';
+
+  mainBlock.onclick = (callback);
+
+  if (active) {
+    mainBlock.classList.add(active);
+  }
+
+  mainBlock.textContent = index + 1;
+  return mainBlock;
+}
+
+function createPagArrow(total, page, setPage, arrowClass) {
+  let arrowDisabledClass = 0;
+  let arrowCallback = 0;
+
+  if (arrowClass === 'pagination-item_next') {
+    if (page + 1 !== Math.ceil(total / 10)) {
+      arrowDisabledClass = ''
+      arrowCallback = () => setPage(page + 1);
+    } else {
+      arrowDisabledClass = 'pagination-item_disabled'
+      arrowCallback = null;
+    }
+  }
+
+  if (arrowClass === 'pagination-item_last') {
+    if (page + 1 !== Math.ceil(total / 10)) {
+      arrowDisabledClass = ''
+      arrowCallback = () => setPage(Math.ceil(this.total / 10) - 1);
+    } else {
+      arrowDisabledClass = 'pagination-item_disabled'
+      arrowCallback = null;
+    }
+  }
+
+  if (arrowClass === 'pagination-item_prev') {
+    if (page !== 0) {
+      arrowDisabledClass = ''
+      arrowCallback = () => setPage(page - 1);
+    } else {
+      arrowDisabledClass = 'pagination-item_disabled'
+      arrowCallback = null;
+    }
+  }
+
+  if (arrowClass === 'pagination-item_first') {
+    if (page !== 0) {
+      arrowDisabledClass = ''
+      arrowCallback = () => setPage(0);
+    } else {
+      arrowDisabledClass = 'pagination-item_disabled'
+      arrowCallback = null;
+    }
+  }
+
+  const mainBlock = document.createElement('div');
+  mainBlock.className = `pagination-item ${arrowClass} ${arrowDisabledClass}`;
+  mainBlock.onclick = arrowCallback;
+  return mainBlock;
+}
+
+module.exports = { getData, getImage, createCard, createPagItem, createPagArrow };
