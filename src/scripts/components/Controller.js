@@ -16,17 +16,15 @@ function Controller(placeh) {
   var page = 0;
   var total = 0;
   var request = '';
-  var error = '';
 
   changePage = function (event) {
     page = Number(event.currentTarget.textContent) - 1;
-    console.log(this)
-    checkoutPage();
+    checkoutPage.call(this);
   }
 
   setPage = function (num) {
     page = num;
-    checkoutPage();
+    checkoutPage.call(this);
   }
 
   loadImages = function (data, callback) {
@@ -38,7 +36,7 @@ function Controller(placeh) {
         imgArr[i] = img;
         fillingProgress += 1;
         if (fillingProgress === a.length) {
-          callback(imgArr)
+          callback(imgArr);
         }
       });
     });
@@ -52,11 +50,11 @@ function Controller(placeh) {
   }
 
   generatePageItems = function (data) {
-    const pages = [];
-    let active = "";
-    const changePageL = changePage.bind(this)
+    var pages = [];
+    var active = "";
+    var changePageL = changePage.bind(this);
 
-    for (let i = 0; i < total / 10; i++) {
+    for (var i = 0; i < total / 10; i++) {
       active = page === i ? "pagination-item_active" : "";
       pages.push(functions.createPagItem(i, active, changePageL));
     }
@@ -64,26 +62,27 @@ function Controller(placeh) {
     if (pages.length > 10 && page >= 4 && page <= pages.length - 4) {
       return pages.slice(page - 3, page).concat(pages.slice(page, page + 4));
     } else if (pages.length > 10 && page >= pages.length - 4) {
-      return pages.slice(-6)
+      return pages.slice(-6);
     } else if (pages.length > 10) {
-      return pages.slice(0, 6)
+      return pages.slice(0, 6);
     }
 
-    return pages
+    return pages;
   }
 
   generatePagination = function (data) {
-    const pages = generatePageItems(data);
-
-    const setPageL = setPage.bind(this);
+    var pages = generatePageItems.call(this, data);
+    var setPageL = setPage.bind(this);
 
     pages.push(functions.createPagArrow.call(this, total, page, setPageL, 'pagination-item_next'));
     pages.push(functions.createPagArrow.call(this, total, page, setPageL, 'pagination-item_last'));
     pages.unshift(functions.createPagArrow.call(this, total, page, setPageL, 'pagination-item_prev'));
     pages.unshift(functions.createPagArrow.call(this, total, page, setPageL, 'pagination-item_first'));
 
-    return pages
+    return pages;
   }
+
+  var generatePaginationG = generatePagination.bind(this);
 
   checkoutPage = function () {
     toggleLoader();
@@ -92,7 +91,7 @@ function Controller(placeh) {
     pagArea.textContent = '';
     errorBox.textContent = '';
 
-    return this.start.call(this, `${constants.DATA_LINK}?searchBy=title&search=${request}&offset=${page * 10}`);
+    return this.start(constants.DATA_LINK + '?searchBy=title&search=' + request + '&offset=' + page * 10);
   }
 
   toggleLoader = function () {
@@ -106,14 +105,16 @@ function Controller(placeh) {
   }
 
   insertPagination = function (pages) {
-    pages.map(a => pagArea.append(a));
+    pages.map(function (a) {
+      pagArea.append(a);
+    })
   }
 
   submitForm = function (event) {
     event.preventDefault();
     toggleLoader();
 
-    const requestBody = searchInput.value;
+    var requestBody = searchInput.value;
 
     if (!requestBody.length) {
       errorBox.textContent = 'Your request is empty';
@@ -128,12 +129,11 @@ function Controller(placeh) {
     infoBox.textContent = '';
     page = 0;
 
-
-    return this.start.call(this, `${constants.DATA_LINK}?searchBy=title&search=${requestBody}&offset=0`);
+    return this.start(constants.DATA_LINK + '?searchBy=title&search=' + requestBody + '&offset=0');
   }
 
   this.setEvents = function () {
-    const submitFormL = submitForm.bind(this);
+    var submitFormL = submitForm.bind(this);
     searchForm.onsubmit = submitFormL;
   }
 
@@ -143,13 +143,13 @@ function Controller(placeh) {
       dataG = data.data;
       total = data.total;
       if (dataG.length) {
-        const pages = generatePagination(data);
+        var pages = generatePaginationG(data);
         insertPagination(pages);
         if (request) {
-          infoBox.textContent = `Search results for "${request}". Total movies: ${total}. Total pages: ${Math.ceil(total / 10)}.`;
+          infoBox.textContent = 'Search results for "' + request + '". Total movies: ' + total + '. Total pages: ' + Math.ceil(total / 10) + '.';
         }
       } else {
-        errorBox.textContent = "Nothing is found"
+        errorBox.textContent = "Nothing is found";
         toggleLoader();
       }
 

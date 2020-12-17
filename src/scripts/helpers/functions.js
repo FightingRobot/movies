@@ -93,46 +93,54 @@ function createPagArrow(total, page, setPage, arrowClass) {
 
   if (arrowClass === 'pagination-item_next') {
     if (page + 1 !== Math.ceil(total / 10)) {
-      arrowDisabledClass = ''
-      arrowCallback = () => setPage(page + 1);
+      arrowDisabledClass = '';
+      arrowCallback = function () {
+        setPage(page + 1);
+      }
     } else {
-      arrowDisabledClass = 'pagination-item_disabled'
+      arrowDisabledClass = 'pagination-item_disabled';
       arrowCallback = null;
     }
   }
 
   if (arrowClass === 'pagination-item_last') {
     if (page + 1 !== Math.ceil(total / 10)) {
-      arrowDisabledClass = ''
-      arrowCallback = () => setPage(Math.ceil(this.total / 10) - 1);
+      arrowDisabledClass = '';
+      arrowCallback = function () {
+        setPage(Math.ceil(total / 10) - 1);
+      }
     } else {
-      arrowDisabledClass = 'pagination-item_disabled'
+      arrowDisabledClass = 'pagination-item_disabled';
       arrowCallback = null;
     }
   }
 
   if (arrowClass === 'pagination-item_prev') {
     if (page !== 0) {
-      arrowDisabledClass = ''
-      arrowCallback = () => setPage(page - 1);
+      arrowDisabledClass = '';
+      arrowCallback = function () {
+        setPage(page - 1);
+      }
     } else {
-      arrowDisabledClass = 'pagination-item_disabled'
+      arrowDisabledClass = 'pagination-item_disabled';
       arrowCallback = null;
     }
   }
 
   if (arrowClass === 'pagination-item_first') {
     if (page !== 0) {
-      arrowDisabledClass = ''
-      arrowCallback = () => setPage(0);
+      arrowDisabledClass = '';
+      arrowCallback = function () {
+        setPage(0);
+      }
     } else {
-      arrowDisabledClass = 'pagination-item_disabled'
+      arrowDisabledClass = 'pagination-item_disabled';
       arrowCallback = null;
     }
   }
 
   const mainBlock = document.createElement('div');
-  mainBlock.className = `pagination-item ${arrowClass} ${arrowDisabledClass}`;
+  mainBlock.className = 'pagination-item ' + arrowClass + ' ' + arrowDisabledClass;
   mainBlock.onclick = arrowCallback;
   return mainBlock;
 }
