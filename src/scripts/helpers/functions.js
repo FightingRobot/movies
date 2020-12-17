@@ -74,7 +74,7 @@ function createCard(object, image) {
 }
 
 function createPagItem(index, active, callback) {
-  const mainBlock = document.createElement('div');
+  var mainBlock = document.createElement('div');
   mainBlock.className = 'pagination-item ';
 
   mainBlock.onclick = (callback);
@@ -88,8 +88,8 @@ function createPagItem(index, active, callback) {
 }
 
 function createPagArrow(total, page, setPage, arrowClass) {
-  let arrowDisabledClass = 0;
-  let arrowCallback = 0;
+  var arrowDisabledClass = 0;
+  var arrowCallback = 0;
 
   if (arrowClass === 'pagination-item_next') {
     if (page + 1 !== Math.ceil(total / 10)) {
@@ -139,7 +139,7 @@ function createPagArrow(total, page, setPage, arrowClass) {
     }
   }
 
-  const mainBlock = document.createElement('div');
+  var mainBlock = document.createElement('div');
   mainBlock.className = 'pagination-item ' + arrowClass + ' ' + arrowDisabledClass;
   mainBlock.onclick = arrowCallback;
   return mainBlock;
